@@ -26,13 +26,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"customers_read","invoices_read","users_read"})
+     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"customers_read","invoices_read","users_read"})
+     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
      */
     private $email;
 
@@ -51,13 +51,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read","users_read"})
+     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read","users_read"})
+     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
      */
     private $lastName;
 
