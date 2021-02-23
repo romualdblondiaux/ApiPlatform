@@ -8,10 +8,9 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-
-use Symfony\Component\Serializer\Annotation\Groups;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -19,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource(
- * normalizationContext={"groups"={"users_read"}}
+ *  normalizationContext={"groups"={"users_read"}}
  * )
  * @ApiFilter(SearchFilter::class, properties={"customers.firstName"})
  * @UniqueEntity("email", message="Un utilisateur ayant cette adresse e-mail existe déjà")
@@ -30,13 +29,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
+     * @Groups({"customers_read","invoices_read", "users_read","invoices_subresource"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
+     * @Groups({"customers_read","invoices_read", "users_read","invoices_subresource"})
      * @Assert\NotBlank(message="L'e-mail doit être renseignée")
      * @Assert\Email(message="L'e-mail doit être valide")
      */
@@ -44,31 +43,30 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"users_read","customers_read"})
+     * @Groups({"users_read", "customers_read"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups({"users_read"})
-     *  @Assert\NotBlank(message="Le mot de passe est obligatoire")
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
-     * @Assert\NotBlank(message="Le prénom du client est obligatoire")
+     * @Groups({"customers_read","invoices_read", "users_read","invoices_subresource"})
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      * @Assert\Length(min=1, minMessage="Le prénom doit faire entre 1 et 255 caractères", max=255, maxMessage="Le prénom doit faire entre 1 et 255 caractères")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
-     * @Assert\NotBlank(message="Le nom du client est obligatoire")
-     * @Assert\Length(min=1, minMessage="Le nom doit faire entre 1 et 255 caractères", max=255, maxMessage="Le nom doit faire entre 1 et 255 caractères")
+     * @Groups({"customers_read","invoices_read", "users_read","invoices_subresource"})
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(min=2, minMessage="Le nom doit faire entre 2 et 255 caractères", max=255, maxMessage="Le nom doit faire entre 2 et 255 caractères")
      */
     private $lastName;
 
